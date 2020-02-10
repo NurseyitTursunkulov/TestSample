@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
-import com.example.testrussia.FirstFragmentDirections
 import com.example.testrussia.R
 
 /**
@@ -28,7 +27,7 @@ class NewsFragment : Fragment() {
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             val action =
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment(
+                NewsFragmentDirections.actionFirstFragmentToSecondFragment(
                     "From FirstFragment"
                 )
             findNavController().navigate(action)
