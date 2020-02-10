@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.testrussia.R
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class NewsFragment : Fragment() {
 
+    val newsViewModel:NewsViewModel by viewModel()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -24,7 +26,7 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        newsViewModel.newsRepository
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             val action =
                 NewsFragmentDirections.actionFirstFragmentToSecondFragment(
