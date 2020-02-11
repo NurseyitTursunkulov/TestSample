@@ -24,10 +24,14 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     val snackbarText: LiveData<Event<String>> = _snackbarText
 
     init {
+        loadNews(true)
+    }
+
+    private fun loadNews(forceUpdate: Boolean = false) {
         viewModelScope.launch {
             _dataLoading.postValue(true)
             withContext(Dispatchers.IO) {
-                val news = newsRepository.getNews()
+                val news = newsRepository.getNews(forceUpdate)
                 when (news) {
                     is Result.Success -> {
                         val newsList = arrayListOf<NewsModel>()
@@ -38,10 +42,11 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
                     }
 
                     is Result.Error -> {
-                       _snackbarText.postValue(Event(news.exception.toString()))
+                        _snackbarText.postValue(Event(news.exception.toString()))
                     }
 
-                    is Result.Loading -> {}
+                    is Result.Loading -> {
+                    }
                 }
 
                 _dataLoading.postValue(false)

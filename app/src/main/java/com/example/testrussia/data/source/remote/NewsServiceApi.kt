@@ -1,4 +1,4 @@
-package com.example.testrussia.data
+package com.example.testrussia.data.source.remote
 
 import com.example.testrussia.news.model.NewsModel
 import kotlinx.coroutines.Deferred

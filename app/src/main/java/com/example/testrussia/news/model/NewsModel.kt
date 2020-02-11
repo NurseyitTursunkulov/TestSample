@@ -1,41 +1,18 @@
 package com.example.testrussia.news.model
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+
+@Entity
 data class NewsModel(
-    val _advert: Any,
-    val _links: Links,
-    val author: Int,
-    val author_name: String,
-    val blank: Int,
-    val cat_cover: CatCover,
-    val categories: List<Int>,
-    val comment_status: String,
-    val comments_number: String,
-    val content: Content,
-    val date: String,
-    val date_gmt: String,
-    val excerpt: Excerpt,
-    val featured_media: Int,
-    val format: String,
-    val guid: Guid,
-    val id: Int,
-    val link: String,
-    val meta: Meta,
-    val modified: String,
-    val modified_gmt: String,
-    val next_post: Int,
-    val ping_status: String,
-    val post_label: Any,
-    val post_source: Any,
-    val related: Related,
-    val related_new: List<RelatedNew>,
-    val ringo_subtitle: String,
-    val slug: String,
-    val status: String,
-    val sticky: Boolean,
-    val tags: List<Any>,
-    val teaser: String,
-    val template: String,
-    val title: Title,
-    val type: String,
-    val yst_prominent_words: List<Any>
+    @Embedded
+    var cat_cover: CatCover? = null,
+    @Embedded
+    var title: Title? = null,
+    @Embedded(prefix = "foo_")
+    var content: Content? = null,
+    @PrimaryKey
+    var id: Int = 0
 )
