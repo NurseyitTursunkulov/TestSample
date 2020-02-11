@@ -2,6 +2,7 @@ package com.example.testrussia.news
 
 import android.util.Log
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
  fun NewsFragment.setupListAdapter() {
@@ -12,6 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
             adapter = listAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
+            addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    LinearLayoutManager.VERTICAL
+                )
+            )
         }
         viewDataBinding.lifecycleOwner = this
     } else {

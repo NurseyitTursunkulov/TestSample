@@ -15,8 +15,11 @@
  */
 package com.example.testrussia.news
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.testrussia.news.model.NewsModel
 
 /**
@@ -25,4 +28,12 @@ import com.example.testrussia.news.model.NewsModel
 @BindingAdapter("app:items")
 fun setItems(listView: RecyclerView, items: List<NewsModel>) {
     (listView.adapter as NewsAdapter).submitList(items)
+}
+
+@BindingAdapter("app:setImage")
+fun setImages(imageView: ImageView,url:String?){
+    if (!url.isNullOrEmpty()) {
+        Glide.with(imageView.context).load(url).apply(RequestOptions.circleCropTransform()).into(imageView);
+    }
+
 }
