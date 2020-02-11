@@ -1,11 +1,14 @@
 package com.example.testrussia.news
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testrussia.Event
+import com.google.android.material.snackbar.Snackbar
 
- fun NewsFragment.setupListAdapter() {
+fun NewsFragment.setupListAdapter() {
     val viewModel = viewDataBinding.viewmodel
     if (viewModel != null) {
         listAdapter = NewsAdapter(viewModel)
@@ -29,4 +32,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
             listAdapter.submitList(it)
         }
     })
+}
+
+fun NewsFragment.showSnackBarMessage(
+    event: Event<String>,
+    view: View
+) {
+    event.getContentIfNotHandled()?.let {
+        Snackbar.make(view, it, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
 }

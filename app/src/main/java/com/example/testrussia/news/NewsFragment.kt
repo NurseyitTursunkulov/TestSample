@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.testrussia.Event
 import com.example.testrussia.R
 import com.example.testrussia.databinding.FragmentNewsBinding
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -40,5 +42,9 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListAdapter()
+        newsViewModel.snackbarText.observe(viewLifecycleOwner, Observer {event->
+            showSnackBarMessage(event, view)
+        })
     }
+
 }

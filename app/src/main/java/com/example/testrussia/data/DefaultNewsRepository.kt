@@ -26,7 +26,7 @@ class DefaultNewsRepository(
                 }
             }
 
-            val news = fetchNewsFromRemoteOrLocal()
+            val news = fetchNewsFromRemoteOrLocal(forceUpdate)
             // Refresh the cache with the new news items
             (news as? Result.Success)?.let { refreshCache(it.data) }
 
@@ -55,7 +55,7 @@ class DefaultNewsRepository(
     }
 
 
-    private suspend fun fetchNewsFromRemoteOrLocal(): Result<List<NewsModel>> {
+    private suspend fun fetchNewsFromRemoteOrLocal(  forceUpdate: Boolean): Result<List<NewsModel>> {
         val remoteNews = remoteDataSource.getNews()
         when (remoteNews) {
             is Result.Error -> Log.d("Nurs","Remote data source fetch failed")
@@ -64,6 +64,11 @@ class DefaultNewsRepository(
                 return remoteNews
             }
             else -> throw IllegalStateException()
+        }
+
+        // Don't read from local if it's forced
+        if (forceUpdate) {
+            return Result.Error(Exception("Refresh failed"))
         }
 
         // Local if remote fails

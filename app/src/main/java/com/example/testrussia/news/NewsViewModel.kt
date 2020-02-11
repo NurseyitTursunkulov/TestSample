@@ -54,4 +54,8 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
 
         }
     }
+
+    fun refresh() {
+        loadNews(forceUpdate = true)
+    }
 }

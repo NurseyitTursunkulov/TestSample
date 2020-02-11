@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        // Start Koin
         startKoin {
             androidLogger()
             androidContext(this@App)
@@ -52,14 +51,13 @@ class App : Application() {
         }
 
         factory { get<Retrofit>().create(NewsServiceApi::class.java) }
+
         factory<NewsRepository> {
             DefaultNewsRepository(
                 remoteDataSource = RemoteDataSource(newsServiceApi = get()),
                 localDataSource = LocalDataSource(newsDao = get())
             )
         }
-
-
 
         viewModel { NewsViewModel(newsRepository = get()) }
 
