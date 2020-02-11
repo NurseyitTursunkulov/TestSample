@@ -7,9 +7,11 @@ data class Links(
     val author: List<Author>,
     val collection: List<Collection>,
     val curies: List<Cury>,
+    @SerializedName("predecessor-version")
     val predecessor_version: List<PredecessorVersion>,
     val replies: List<Reply>,
     val self: List<Self>,
+    @SerializedName("version-history")
     val version_history: List<VersionHistory>,
     @SerializedName("wp:attachment")
     val wp_attachment: List<WpAttachment>,

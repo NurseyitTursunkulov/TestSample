@@ -32,10 +32,10 @@ data class NewsModel(
     val slug: String,
     val status: String,
     val sticky: Boolean,
-    val tags: List<Int>,
+    val tags: List<Any>,
     val teaser: String,
     val template: String,
     val title: Title,
     val type: String,
-    val yst_prominent_words: List<Int>
+    val yst_prominent_words: List<Any>
 )

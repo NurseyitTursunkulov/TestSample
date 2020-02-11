@@ -3,9 +3,9 @@ package com.example.testrussia.news.model
 import com.google.gson.annotations.SerializedName
 
 data class Sizes(
-    val highres: Any,
-    val large: Any,
-    val mobile: Any,
-    @SerializedName(" post-thumbnail")
-    val postthumbnail: Any
+    val highres: String,
+    val large: String,
+    val mobile: String,
+    @SerializedName("post-thumbnail")
+    val post_thumbnail: String
 )

@@ -1,6 +1,5 @@
 package com.example.testrussia.data
 
-import android.util.Log
 import com.example.testrussia.news.model.NewsModel
 
 class DefaultNewsRepository(val newsServiceApi: NewsServiceApi) : NewsRepository {
