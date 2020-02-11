@@ -9,9 +9,8 @@ class DefaultNewsRepository(val newsServiceApi: NewsServiceApi) : NewsRepository
             val call = newsServiceApi.getNews().await()
             if (call.isSuccessful) {
                 val list =  ArrayList<com.example.testrussia.news.model.NewsModel>()
-                Log.d("Nurs","${call.body()?.size}")
+
                 call.body()?.forEach {
-//                    Log.d("Nurs", it.title.toString())
                     list.add(it)
                 }
                 return Result.Success(list)
