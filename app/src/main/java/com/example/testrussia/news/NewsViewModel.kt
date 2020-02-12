@@ -23,6 +23,9 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
 
+    private val _openDetailsEvent = MutableLiveData<Event<NewsModel>>()
+    val openDetailsEvent: LiveData<Event<NewsModel>> = _openDetailsEvent
+
     init {
         loadNews(true)
     }
@@ -58,4 +61,9 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     fun refresh() {
         loadNews(forceUpdate = true)
     }
+
+    fun openDetails(newsModel: NewsModel){
+        _openDetailsEvent.value = Event(newsModel)
+    }
+
 }

@@ -11,9 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testrussia.Event
+import com.example.testrussia.EventObserver
 import com.example.testrussia.R
 import com.example.testrussia.databinding.FragmentNewsBinding
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -21,7 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class NewsFragment : Fragment() {
 
-    val newsViewModel: NewsViewModel by viewModel()
+    val newsViewModel: NewsViewModel by sharedViewModel()
 
     lateinit var viewDataBinding: FragmentNewsBinding
 
@@ -44,6 +46,10 @@ class NewsFragment : Fragment() {
         setupListAdapter()
         newsViewModel.snackbarText.observe(viewLifecycleOwner, Observer {event->
             showSnackBarMessage(event, view)
+        })
+        newsViewModel.openDetailsEvent.observe(viewLifecycleOwner, EventObserver{
+            val action = NewsFragmentDirections.actionNewsFragmentToDetailFragtament(it.id)
+            findNavController().navigate(action)
         })
     }
 
