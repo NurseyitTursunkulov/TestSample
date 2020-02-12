@@ -1,22 +1,23 @@
 package com.example.testrussia
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import android.webkit.WebViewClient
+import com.example.testrussia.news.NewsViewModel
+import kotlinx.android.synthetic.main.fragment_details.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class DetailsFragment : Fragment() {
 
-    private val args: DetailsFragmentArgs by navArgs()
-
+    val newsViewModel: NewsViewModel by sharedViewModel()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -25,14 +26,16 @@ class DetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<TextView>(R.id.textview_second).text =
-                getString(R.string.hello_second_fragment, args.postId.toString())
-
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        with(webview){
+            val unencodedHtml =
+                newsViewModel.openDetailsEvent.value?.peekContent()?.content?.rendered
+            val encodedHtml = Base64.encodeToString(unencodedHtml?.toByteArray(), Base64.NO_PADDING)
+            loadData(encodedHtml, "text/html", "base64")
+            settings.javaScriptEnabled = true
+            webViewClient = WebViewClient()
         }
     }
 }
