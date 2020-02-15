@@ -30,9 +30,9 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
         loadNews(true)
     }
 
-    private fun loadNews(forceUpdate: Boolean = false) {
+    fun loadNews(forceUpdate: Boolean = false) {
+        _dataLoading.value = (true)
         viewModelScope.launch {
-            _dataLoading.postValue(true)
             withContext(Dispatchers.IO) {
                 val news = newsRepository.getNews(forceUpdate)
                 when (news) {
