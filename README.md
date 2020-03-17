@@ -15,3 +15,12 @@ sample for employer assesment
 
 Вывести заголовок и контент выбранной статьи в WebView и реализовать навигацию назад к списку постов.
 
+Адрес для получения постов:
+https://lifehacker.ru/api/wp/v2/posts
+
+В каждом объекте поста находятся:
+Заголовок - title.rendered
+Контент - content.rendered
+Картинка категории - cat_cover.sizes.mobile
+
+
